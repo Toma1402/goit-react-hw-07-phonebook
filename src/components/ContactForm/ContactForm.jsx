@@ -9,6 +9,8 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
   const handleSubmit = e => {
     e.preventDefault();
+    const name = e.currentTarget.elements.name.value;
+    const phone = e.currentTarget.elements.number.value;
     /* const newContact = {
       name: e.currentTarget.elements.name.value,
       phone: e.currentTarget.elements.number.value,
@@ -22,8 +24,8 @@ export const ContactForm = () => {
     } */
     dispatch(
       addContact({
-        name: e.currentTarget.elements.name.value,
-        phone: e.currentTarget.elements.number.value,
+        name,
+        phone,
       })
     );
     e.currentTarget.reset();
