@@ -1,7 +1,7 @@
 import { contactsReducer } from './contactsSlice';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { /* combineReducers, */ configureStore } from '@reduxjs/toolkit';
 import { filterReducer } from './filterSlice';
-import {
+/* import {
   persistStore,
   persistReducer,
   FLUSH,
@@ -10,8 +10,8 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+} from 'redux-persist'; */
+/* import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
 const persistConfig = {
   key: 'root',
@@ -32,4 +32,10 @@ export const store = configureStore({
     }),
 });
 
-export let persistor = persistStore(store);
+export let persistor = persistStore(store); */
+export const store = configureStore({
+  reducer: {
+    contacts: contactsReducer,
+    filter: filterReducer,
+  },
+});

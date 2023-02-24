@@ -1,21 +1,28 @@
 import PropTypes from 'prop-types';
 import { ContactItem } from 'components/ContactItem/ContactItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { selectContacts } from 'redux/selectors';
+import { fetchContacts } from 'redux/operations';
 export const ContactList = () => {
-  const contactsArr = useSelector(state => state.contacts);
   const inputedFilter = useSelector(state => state.filter);
-  console.log(inputedFilter);
+
+  const contactsArr = useSelector(selectContacts);
   console.log(contactsArr);
 
+  const dispatch = useDispatch();
   const normalizedFilter = inputedFilter.toLowerCase();
   const newArray = contactsArr.filter(contact =>
     contact.name.toLowerCase().includes(normalizedFilter)
   );
-
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+  console.log(contactsArr);
   return (
     <ul>
-      {newArray.map(({ name, id, number }, index) => (
-        <ContactItem key={id} name={name} idx={id} number={number} />
+      {newArray.map(({ name, id, phone }, index) => (
+        <ContactItem key={id} name={name} idx={id} phone={phone} />
       ))}
     </ul>
   );
@@ -25,7 +32,7 @@ ContactList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
     }).isRequired
   ),
 };
